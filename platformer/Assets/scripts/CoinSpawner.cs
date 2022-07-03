@@ -10,7 +10,7 @@ public class CoinSpawner : MonoBehaviour
     private Transform[] _spawnPoints;
     private Coroutine _coroutine;
 
-    void Start()
+    private void Start()
     {
         _spawnPoints = new Transform[_spawnPoint.childCount];
 

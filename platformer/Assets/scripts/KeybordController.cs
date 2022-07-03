@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller : MonoBehaviour
+public class KeybordController : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
 

@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+
 
 public class Score : MonoBehaviour
 {
     [SerializeField] private Text _scoreText;
-    [SerializeField] private UnityEvent _pickUp;
 
     private int _score;
 
-    public void AddScore()
+    private void AddScore()
     {
-        _pickUp.Invoke();
         _score++;
     }
 

@@ -10,16 +10,16 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
-    private JumpController _jumpController;
     private float _walkTime;
     private float _walkTImeCooldown = 0.1f;
     private MoveState _moveState = MoveState.Idle;
+    private float _inJumpSpeed = 2f;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-        _jumpController = GetComponent<JumpController>();
     }
     public void MoveRight()
     {
@@ -27,9 +27,14 @@ public class PlayerMovement : MonoBehaviour
         {
             _moveState = MoveState.Walk;
             _spriteRenderer.flipX = false;
-            _animator.Play("run");
+            _animator.Play(States.Run);
             transform.Translate(Vector2.right * (_speed * Time.deltaTime));
             _walkTime = _walkTImeCooldown;
+        }
+        else
+        {
+            _spriteRenderer.flipX = false;
+            transform.Translate(Vector2.right * ((_speed - _inJumpSpeed) * Time.deltaTime));
         }
     }
 
@@ -39,9 +44,14 @@ public class PlayerMovement : MonoBehaviour
         {
             _moveState = MoveState.Walk;
             _spriteRenderer.flipX = true;
-            _animator.Play("run");
+            _animator.Play(States.Run);
             transform.Translate(Vector2.left * (_speed * Time.deltaTime));
             _walkTime = _walkTImeCooldown;
+        }
+        else 
+        {
+            _spriteRenderer.flipX = true;
+            transform.Translate(Vector2.left * ((_speed - _inJumpSpeed) * Time.deltaTime));
         }
     }
 
@@ -49,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_moveState != MoveState.Jump)
         {
-            _animator.Play("jump");
+            _animator.Play(States.Jump);
             _moveState = MoveState.Jump;
             _rigidbody.velocity = (Vector2.up * _jumpForce * Time.deltaTime);
         }
@@ -58,23 +68,13 @@ public class PlayerMovement : MonoBehaviour
     public void Idle()
     {
         _moveState = MoveState.Idle;
-        _animator.Play("idle");
+        _animator.Play(States.Idle);
     }
 
     private void FixedUpdate()
     {
         if (_moveState == MoveState.Jump)
         {
-            if (Input.GetKey(KeyCode.D))
-            {
-                _jumpController.MoveRight();
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                _jumpController.MoveLeft();
-            }
-
             if (_rigidbody.velocity == Vector2.zero)
             {
                 Idle();
@@ -92,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     private enum MoveState
     { 
         Idle,
@@ -100,3 +99,10 @@ public class PlayerMovement : MonoBehaviour
         Jump
     }
 }
+
+    public static class States 
+    {
+        public const string Idle = "idle"; 
+        public const string Run = "run";
+        public const string Jump = "jump";
+    }

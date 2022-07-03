@@ -9,7 +9,6 @@ public class Coin : MonoBehaviour
     {
         if (collision.TryGetComponent<Score>(out Score score))
         {
-            score.AddScore();
             Destroy (gameObject);
         }
     }
