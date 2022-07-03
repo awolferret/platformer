@@ -15,12 +15,6 @@ public class PlayerMovement : MonoBehaviour
     private MoveState _moveState = MoveState.Idle;
     private float _inJumpSpeed = 2f;
 
-    private void Start()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
-    }
     public void MoveRight()
     {
         if (_moveState != MoveState.Jump)
@@ -70,6 +64,12 @@ public class PlayerMovement : MonoBehaviour
         _moveState = MoveState.Idle;
         _animator.Play(States.Idle);
     }
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
+    }
 
     private void FixedUpdate()
     {
@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
     }
 }
 
-    public static class States 
+    class States 
     {
         public const string Idle = "idle"; 
         public const string Run = "run";
