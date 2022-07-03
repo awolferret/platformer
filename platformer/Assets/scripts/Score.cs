@@ -9,7 +9,7 @@ public class Score : MonoBehaviour
 
     private int _score;
 
-    private void AddScore()
+    public void AddScore()
     {
         _score++;
     }

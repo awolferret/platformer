@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    private Transform _player;
-
-    private void Start()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+    [SerializeField] private Transform _player;
 
     private void FixedUpdate()
     {

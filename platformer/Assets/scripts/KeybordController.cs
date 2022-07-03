@@ -5,6 +5,9 @@ using UnityEngine;
 public class KeybordController : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
+    private Vector2 _rightDirection = Vector2.right;
+    private Vector2 _leftDirection = Vector2.left;
+    private bool _flipX;
 
     private void Start()
     {
@@ -15,12 +18,14 @@ public class KeybordController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            _playerMovement.MoveRight();
+            _flipX = false;
+            _playerMovement.Move(_rightDirection,_flipX);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            _playerMovement.MoveLeft();
+            _flipX = true;
+            _playerMovement.Move(_leftDirection,_flipX);
         }
 
         if (Input.GetKey(KeyCode.Space))

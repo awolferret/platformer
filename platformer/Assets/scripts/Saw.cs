@@ -6,8 +6,9 @@ using DG.Tweening;
 public class Saw : MonoBehaviour
 {
     [SerializeField] private float _force;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    private SpriteRenderer _spriteRenderer;
+    private Vector2 direction;
 
     private void Start()
     {
@@ -18,16 +19,21 @@ public class Saw : MonoBehaviour
     {
         if (collision.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody2D))
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-
             if (_spriteRenderer.flipX == true)
             {
-                rigidbody2D.velocity = (Vector2.left * _force * Time.deltaTime);
+                direction = Vector2.left;
+                Push(direction,rigidbody2D);
             }
-            else
+            else if(_spriteRenderer.flipX == false)
             {
-                rigidbody2D.velocity = (Vector2.right * _force * Time.deltaTime);
+                direction = Vector2.right;
+                Push(direction, rigidbody2D);
             }
         }
+    }
+
+    private void Push(Vector2 direction,Rigidbody2D rigidbody2D)
+    {
+        rigidbody2D.velocity = (direction * _force * Time.deltaTime);
     }
 }
