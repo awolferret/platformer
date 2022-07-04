@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeybordController : MonoBehaviour
+public class InputHandler : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
     private Vector2 _rightDirection = Vector2.right;

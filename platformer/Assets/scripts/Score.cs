@@ -12,15 +12,12 @@ public class Score : MonoBehaviour
     public void AddScore()
     {
         _score++;
+        _scoreText.text = "Счет: " + _score;
     }
 
     private void Start()
     {
         _score = 0;
-    }
-
-    private void FixedUpdate()
-    {
         _scoreText.text = "Счет: " + _score;
     }
 }
