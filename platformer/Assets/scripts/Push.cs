@@ -1,19 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
-public class Saw : MonoBehaviour
+public class Push : MonoBehaviour
 {
     [SerializeField] private float _force;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    private Vector2 direction;
-
-    private void Start()
-    {
-        transform.DOMove(new Vector2(-9.62f, -3.41f), 3).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
-    }
+    private Vector2 _direction;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,18 +15,18 @@ public class Saw : MonoBehaviour
         {
             if (_spriteRenderer.flipX == true)
             {
-                direction = Vector2.left;
-                Push(direction,rigidbody2D);
+                _direction = Vector2.right;
+                Poke(_direction, rigidbody2D);
             }
-            else if(_spriteRenderer.flipX == false)
+            else if (_spriteRenderer.flipX == false)
             {
-                direction = Vector2.right;
-                Push(direction, rigidbody2D);
+                _direction = Vector2.left;
+                Poke(_direction, rigidbody2D);
             }
         }
     }
 
-    private void Push(Vector2 direction,Rigidbody2D rigidbody2D)
+    private void Poke(Vector2 direction, Rigidbody2D rigidbody2D)
     {
         rigidbody2D.velocity = (direction * _force * Time.deltaTime);
     }
